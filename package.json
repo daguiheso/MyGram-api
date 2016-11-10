@@ -7,7 +7,7 @@
     "test": "npm run lint && ava"
   },
   "standard": {
-      "parser": "babel-eslint"
+    "parser": "babel-eslint"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,14 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-eslint": "^7.1.0",
-    "standard": "^8.5.0"
+    "standard": "^8.5.0",
+    "test-listen": "^1.0.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "micro": "^6.1.0",
+    "request": "^2.78.0",
+    "request-promise": "^4.1.1",
+    "uuid-base62": "^0.1.0"
   }
 }
