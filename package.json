@@ -1,0 +1,27 @@
+{
+  "name": "MyGram-api",
+  "version": "1.0.0",
+  "description": "API mygram",
+  "scripts": {
+    "lint": "standard",
+    "test": "npm run lint && ava"
+  },
+  "standard": {
+      "parser": "babel-eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daguiheso/MyGram-api.git"
+  },
+  "author": "Daniel Hernandez <danielhernandez16@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daguiheso/MyGram-api/issues"
+  },
+  "homepage": "https://github.com/daguiheso/MyGram-api",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-eslint": "^7.1.0",
+    "standard": "^8.5.0"
+  }
+}
