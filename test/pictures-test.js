@@ -7,26 +7,26 @@ import uuid from 'uuid-base62'
 import listen from 'test-listen'
 // me permite hacer http request utilizando promesas
 import request from 'request-promise'
+import fixtures from './fixtures/'
 import pictures from '../pictures'
 
 test('GET /:id', async t => {
-  let id = uuid.v4()
-  // mock de microservicio corriendo
-
-  /*
+  let image = fixtures.getImage()
+   /*
    * creando servidor utilizando micro que es quien lanza el servidor,
    * micro recibe  lo que exporta micro y micro lo que exporta es una
    * function en pictures
    */
   let srv = micro(pictures)
 
-  // listen me retorna una url y puerto del servidor creado, asi que listen corre el servidor durante el test
+  // listen me retorna una url y puerto del servidor que esta corriendo, asi que listen corre el servidor durante el test
 
-  // obtener ul, como listen retorna una promesa por eso el await
+  // obtener url, como listen retorna una promesa por eso el await
   let url = await listen(srv)
-  // obtener body de request
-  let body = await request({ uri: `${url}/${id}`, json: true })
-  t.deepEqual(body, { id })
+  // hacemos peticion http al microservicio y obtenemos body de request
+  let body = await request({ uri: `${url}/${image.publicId}`, json: true })
+  // validamos que objeto que retorna es igual a imagen creada
+  t.deepEqual(body, image)
 })
 
 // tests pendientes
