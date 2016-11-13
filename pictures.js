@@ -3,6 +3,20 @@
 // send me permite enviar respuestas en las  peticiones que nos hacen al servidor
 import { send } from 'micro'
 import HttpHash from 'http-hash'
+// la DB es una clase que importamos
+import Db from 'MyGram-db'
+import config from './config'
+import DbStub from './test/stub/db'
+
+// const env = process.env.NODE_ENV || 'production'
+const env = 'test'
+
+// instanciando clase Db
+let db = new Db(config.db)
+
+if (env === 'test') {
+  db = new DbStub()
+}
 
 const hash = HttpHash()
 
@@ -15,7 +29,16 @@ const hash = HttpHash()
  * asincrona en el callback por que no va a saber como ejecutarla.
  */
 hash.set('GET /:id', async function getPicture (req, res, params) {
-  send(res, 200, params)
+  // obtenemos el id de los params de la ruta
+  let id = params.id
+  // conexion a la DB
+  await db.connect()
+  // obtenemos imagen
+  let image = await db.getImage(id)
+  // terminamos conexion a la DB
+  await db.disconnect()
+  // enviamos esa imagen dentro de la respuesta
+  send(res, 200, image)
 })
 
 /*

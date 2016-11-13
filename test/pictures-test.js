@@ -2,7 +2,6 @@
 
 import test from 'ava'
 import micro from 'micro'
-import uuid from 'uuid-base62'
 // para hacer testing de microservicios  con micro
 import listen from 'test-listen'
 // me permite hacer http request utilizando promesas
