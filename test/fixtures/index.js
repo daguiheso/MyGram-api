@@ -14,9 +14,15 @@ export default {
       createdAt: new Date().toString()
     }
   },
-  getImages (n) {
+  getImages () {
     return [
       this.getImage(),
+      this.getImage(),
+      this.getImage()
+    ]
+  },
+  getImagesByTag () {
+    return [
       this.getImage(),
       this.getImage()
     ]

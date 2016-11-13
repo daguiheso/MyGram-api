@@ -91,3 +91,11 @@ test('GET /list', async t => {
   let body = await request({ uri: `${url}/list`, json: true })
   t.deepEqual(body, images)
 })
+
+test('GET /tag/:tag', async t => {
+  let images = fixtures.getImagesByTag()
+  let url = t.context.url
+
+  let body = await request({ uri: `${url}/tag/awesome`, json: true })
+  t.deepEqual(body, images)
+})

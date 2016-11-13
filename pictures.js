@@ -21,6 +21,14 @@ if (env === 'test') {
 
 const hash = HttpHash()
 
+hash.set('GET /tag/:tag', async function byTag (req, res, params) {
+  let tag = params.tag
+  await db.connect()
+  let images = await db.getImagesByTag(tag)
+  await db.disconnect()
+  send(res, 201, images)
+})
+
 // Declaramos ruta GET/list antes de GET/:id para que conserve la presedencia
 hash.set('GET /list', async function listPicture (req, res, params) {
   await db.connect()
