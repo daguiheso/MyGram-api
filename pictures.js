@@ -1,7 +1,8 @@
 'use strict'
 
 // send me permite enviar respuestas en las  peticiones que nos hacen al servidor
-import { send } from 'micro'
+// json me permite extraer el body del request
+import { send, json } from 'micro'
 import HttpHash from 'http-hash'
 // la DB es una clase que importamos
 import Db from 'MyGram-db'
@@ -39,6 +40,15 @@ hash.set('GET /:id', async function getPicture (req, res, params) {
   await db.disconnect()
   // enviamos esa imagen dentro de la respuesta
   send(res, 200, image)
+})
+
+hash.set('POST /', async function postPicture (req, res, params) {
+  // extrayendo el body - esperando a que me devuelva el obj json de la imagen
+  let image = await json(req)
+  await db.connect()
+  let created = await db.saveImage(image)
+  await db.disconnect()
+  send(res, 201, created)
 })
 
 /*
