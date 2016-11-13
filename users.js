@@ -27,6 +27,18 @@ hash.set('POST /', async function postUser (req, res, params) {
   send(res, 201, created)
 })
 
+hash.set('GET /:username', async function getUser (req, res, params) {
+  let username = params.username
+  await db.connect()
+  let user = await db.getUser(username)
+  await db.disconnect()
+
+  delete user.email
+  delete user.password
+
+  send(res, 201, user)
+})
+
 /*
  * micro espera que yo le exporte una funcion asyncrona para ya el
  * escucharla y empezar a servir.
