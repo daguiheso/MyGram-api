@@ -26,5 +26,15 @@ export default {
       this.getImage(),
       this.getImage()
     ]
+  },
+  getUser () {
+    return {
+      id: 's54-8uh-6sd',
+      name: 'David Hernandez',
+      username: 'daviheso',
+      email: 'daviheso@gmail.test',
+      password: 'ohmidios',
+      createdAt: new Date().toString()
+    }
   }
 }
