@@ -51,6 +51,14 @@ hash.set('POST /', async function postPicture (req, res, params) {
   send(res, 201, created)
 })
 
+hash.set('POST /:id/like', async function likePicture (req, res, params) {
+  let id = params.id
+  await db.connect()
+  let image = await db.likeImage(id)
+  await db.disconnect()
+  send(res, 201, image)
+})
+
 /*
  * micro espera que yo le exporte una funcion asyncrona para ya el
  * escucharla y empezar a servir.

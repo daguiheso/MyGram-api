@@ -61,4 +61,26 @@ test('POST /', async t => {
   t.deepEqual(response.body, image)
 })
 
-test.todo('POST /:id/like')
+test('POST /:id/like', async t => {
+  let image = fixtures.getImage()
+  let url = t.context.url
+
+  let options = {
+    method: 'POST',
+    uri: `${url}/${image.publicId}/like`,
+    json: true
+  }
+
+  let body = await request(options)
+  /*
+   * Metodo para hacer CLON de elementos en JS y consiste en volver la
+   * imagen u obj a un string y luego volverlo a parsear. Pero no es muy
+   * recomendado cuando tengo objetos muy grandes, en este caso no hay lio.
+   */
+  let imageNew = JSON.parse(JSON.stringify(image))
+
+  imageNew.liked = true
+  imageNew.likes = 1
+
+  t.deepEqual(body, imageNew)
+})
