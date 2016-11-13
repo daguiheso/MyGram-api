@@ -7,6 +7,7 @@ import HttpHash from 'http-hash'
 // la DB es una clase que importamos
 import Db from 'MyGram-db'
 import config from './config'
+import utils from './lib/utils'
 import DbStub from './test/stub/db'
 
 // const env = process.env.NODE_ENV || 'production'
@@ -61,6 +62,20 @@ hash.set('GET /:id', async function getPicture (req, res, params) {
 hash.set('POST /', async function postPicture (req, res, params) {
   // extrayendo el body - esperando a que me devuelva el obj json de la imagen
   let image = await json(req)
+
+  // Verificacion de token anted de tocar la DB
+  try {
+    let token = await utils.extractToken(req)
+    // obteneiendo token decodificado
+    let encoded = await utils.verifyToken(token, config.secret)
+    if (encoded && encoded.userId !== image.userId) {
+      // lanzando excepcion que sera capturado por el catch y este respondera con el error
+      throw new Error('invalid token')
+    }
+  } catch (e) {
+    return send(res, 401, { error: 'invalid token' })
+  }
+
   await db.connect()
   let created = await db.saveImage(image)
   await db.disconnect()

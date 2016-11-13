@@ -1,3 +1,4 @@
 export default {
-  db: {}
+  db: {},
+  secret: process.env.MYGRAM_SECRET || 'platzi'
 }
