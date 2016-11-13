@@ -21,6 +21,14 @@ if (env === 'test') {
 
 const hash = HttpHash()
 
+// Declaramos ruta GET/list antes de GET/:id para que conserve la presedencia
+hash.set('GET /list', async function listPicture (req, res, params) {
+  await db.connect()
+  let images = await db.getImages()
+  await db.disconnect()
+  send(res, 201, images)
+})
+
 /*
  * Set ruta, se puede como url o metodo y url. Asi que va GET / , le
  * pasamos un id y como handler le definimos una funcion async. Dado

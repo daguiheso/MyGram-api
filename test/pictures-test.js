@@ -36,7 +36,6 @@ test('GET /:id', async t => {
   t.deepEqual(body, image)
 })
 
-// tests pendientes
 test('POST /', async t => {
   let image = fixtures.getImage()
   let url = t.context.url
@@ -83,4 +82,12 @@ test('POST /:id/like', async t => {
   imageNew.likes = 1
 
   t.deepEqual(body, imageNew)
+})
+
+test('GET /list', async t => {
+  let images = fixtures.getImages()
+  let url = t.context.url
+
+  let body = await request({ uri: `${url}/list`, json: true })
+  t.deepEqual(body, images)
 })
