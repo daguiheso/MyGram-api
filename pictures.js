@@ -11,7 +11,7 @@ import utils from './lib/utils'
 import DbStub from './test/stub/db'
 
 // const env = process.env.NODE_ENV || 'production'
-const env = 'test'
+const env = 'production'
 
 // instanciando clase Db
 let db = new Db(config.db)

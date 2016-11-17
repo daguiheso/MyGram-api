@@ -6,7 +6,7 @@ import Db from 'MyGram-db'
 import config from './config'
 import DbStub from './test/stub/db'
 
-const env = 'test'
+const env = 'production'
 
 let db = new Db(config.db)
 if (env === 'test') {
@@ -32,6 +32,7 @@ hash.set('GET /:username', async function getUser (req, res, params) {
   await db.connect()
   let user = await db.getUser(username)
   await db.disconnect()
+  console.log(JSON.stringify(user, null, 4));
 
   delete user.email
   delete user.password
