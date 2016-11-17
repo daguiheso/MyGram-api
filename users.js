@@ -31,8 +31,7 @@ hash.set('GET /:username', async function getUser (req, res, params) {
   let username = params.username
   await db.connect()
   let user = await db.getUser(username)
-  await db.disconnect()
-  console.log(JSON.stringify(user, null, 4));
+  // await db.disconnect()
 
   delete user.email
   delete user.password
