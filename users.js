@@ -3,6 +3,7 @@
 import { send, json } from 'micro'
 import HttpHash from 'http-hash'
 import Db from 'MyGram-db'
+import gravatar from 'gravatar'
 import config from './config'
 import DbStub from './test/stub/db'
 
@@ -31,6 +32,8 @@ hash.set('GET /:username', async function getUser (req, res, params) {
   let username = params.username
   await db.connect()
   let user = await db.getUser(username)
+  // gravatar necesita el email para retornar una url con la imagen de avatar
+  user.avatar = gravatar.url(user.email)
   // await db.disconnect()
 
   delete user.email

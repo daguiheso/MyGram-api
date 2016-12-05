@@ -32,8 +32,10 @@ hash.set('GET /tag/:tag', async function byTag (req, res, params) {
 
 // Declaramos ruta GET/list antes de GET/:id para que conserve la presedencia
 hash.set('GET /list', async function listPicture (req, res, params) {
+  console.log('si entro a GET/ list')
   await db.connect()
   let images = await db.getImages()
+  console.log('IMAGES '+images)
   await db.disconnect()
   send(res, 201, images)
 })
@@ -68,7 +70,7 @@ hash.set('POST /', async function postPicture (req, res, params) {
     let token = await utils.extractToken(req)
     // obteneiendo token decodificado
     let encoded = await utils.verifyToken(token, config.secret)
-    if (encoded && encoded.userId !== image.userId) {
+    if (encoded && encoded.username !== image.userId) {
       // lanzando excepcion que sera capturado por el catch y este respondera con el error
       throw new Error('invalid token')
     }
