@@ -32,10 +32,8 @@ hash.set('GET /tag/:tag', async function byTag (req, res, params) {
 
 // Declaramos ruta GET/list antes de GET/:id para que conserve la presedencia
 hash.set('GET /list', async function listPicture (req, res, params) {
-  console.log('si entro a GET/ list')
   await db.connect()
   let images = await db.getImages()
-  console.log('IMAGES '+images)
   await db.disconnect()
   send(res, 201, images)
 })
